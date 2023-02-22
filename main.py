@@ -1,32 +1,10 @@
-import os
-import cv2
-import numpy as np
+from utils.bantu import BacaData, Dataset
 
-from matplotlib import pyplot as plt
-from glob import glob
+img_dataset = BacaData('image').ambilRGB()
+msk_dataset = BacaData('mask').ambil()
+dem_dataset = BacaData('dem').ambil()
 
-# Konstanta
-img_dir = 'data/*_patch/*'
-patch_size = 512
+X_data, Y_data = Dataset(img_dataset, msk_dataset, dem_dataset).splitXY()
 
-# Membuat string untuk memanggil dataset
-images = []
-masks = []
-dems = []
-
-for i in range(9):
-    images.append('image_{}.png'.format(i))
-    masks.append('mask_{}.png'.format(i))
-    dems.append('dem_{}.tif'.format(i))
-
-# membaca dataset dan memasukkannya ke dalam variabel
-image_dataset = [
-    cv2.imread(img) for img in glob(img_dir)
-]
-
-image_dataset = [
-    cv2.cvtColor(img, cv2.COLOR_BGR2RGB) for img in image_dataset
-]
-
-plt.imshow(image_dataset[1])
-plt.show()
+print(f'Ukuran data input (gambar dan dem) adalah {X_data.shape}')
+print(f'Ukuran data label atau data mask adalah {Y_data.shape}')

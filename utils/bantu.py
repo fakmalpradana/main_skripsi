@@ -1,7 +1,5 @@
 import cv2
 import numpy as np
-from glob import glob
-from matplotlib import pyplot as plt
 
 # Membuat class Data
 class Dirname:
@@ -22,7 +20,7 @@ class Dirname:
 a = Dirname('image', 'png').list()
 
 # membaca dataset dan memasukkannya ke dalam variabel
-class Dataset:
+class BacaData:
     def __init__(self, dir):
         self.dir = dir
     
@@ -38,7 +36,7 @@ class Dataset:
     def ambil(self):
         if (self.dir == 'dem'):
             FILE_DIR = Dirname(self.dir,'tif').list()
-            return [cv2.imread(x,-1) for x in self.dirname(FILE_DIR)]
+            return [cv2.imread(x, -1) for x in self.dirname(FILE_DIR)]
 
         FILE_DIR = Dirname(self.dir,'png').list()
         return [cv2.imread(x) for x in self.dirname(FILE_DIR)]
@@ -46,15 +44,27 @@ class Dataset:
     def ambilRGB(self):
         return [cv2.cvtColor(x, cv2.COLOR_BGR2RGB) for x in self.ambil()]
 
+class Dataset:
+    def __init__(self, img, msk, dem):
+        self.img = img
+        self.msk = msk
+        self.dem = dem
+
+    def splitXY(self):
+        dem = np.expand_dims(np.array(self.dem), -1)
+        img = np.array(self.img)
+
+        X = np.concatenate([img, dem], axis=-1)
+        Y = np.array(self.msk)
+
+        return X, Y
+
 
 # zona test fungsi
-img = Dataset('dem').ambil()
-print(len(img))
-plt.imshow(img[8])
-plt.show()
+# img = Dataset('dem').ambil()
+# # print(len(img))
 
-# img = Dataset('image').ambil(a)
-# print(len(img))
+# # plt.show()
 
-# img = Dataset('image').ambil()
-# print(len(img))
+# xx = np.array(img[1])
+# plt.imshow(xx[-1], cmap='viridis')
