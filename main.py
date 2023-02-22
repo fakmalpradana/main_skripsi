@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from glob import glob
 
 # Konstanta
-img_dir = 'dataset/*/images/*.png'
+img_dir = 'data/*_patch/*'
 patch_size = 512
 
 # Membuat string untuk memanggil dataset
