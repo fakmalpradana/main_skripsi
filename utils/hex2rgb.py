@@ -25,10 +25,10 @@ class Label:
 
         label_seg = np.zeros(label.shape,dtype=np.uint8)
         label_seg [np.all(label == BANGUNAN,axis=-1)] = 6
-        label_seg [np.all(label == SAWAH,axis=-1)] = 2
-        label_seg [np.all(label == SUNGAI,axis=-1)] = 3
-        label_seg [np.all(label == PEPOHONAN,axis=-1)] = 4
-        label_seg [np.all(label == JALAN,axis=-1)] = 1
+        label_seg [np.all(label == SAWAH,axis=-1)] = 1
+        label_seg [np.all(label == SUNGAI,axis=-1)] = 2
+        label_seg [np.all(label == PEPOHONAN,axis=-1)] = 3
+        label_seg [np.all(label == JALAN,axis=-1)] = 4
         label_seg [np.all(label == RTH,axis=-1)] = 5
 
         label_seg = label_seg[:,:,0]
