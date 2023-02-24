@@ -1,7 +1,10 @@
 import numpy as np
 
 class Label:
-    def hex2rgb(label):
+    def __init__(self, mask):
+        self.mask = mask
+
+    def hex2rgb(self, label):
         BANGUNAN = '#69008C'.lstrip('#')
         BANGUNAN = np.array(tuple(int(BANGUNAN[i:i+2], 16) for i in (0, 2, 4))) # 105 0 140
 
@@ -28,12 +31,13 @@ class Label:
         label_seg [np.all(label == JALAN,axis=-1)] = 1
         label_seg [np.all(label == RTH,axis=-1)] = 5
 
-        label_seg = label_seg 
+        label_seg = label_seg[:,:,0]
 
         return label_seg
 
-    def convert(self, mask):
+    def convert(self):
         labels = []
+        mask = np.array(self.mask)
         for i in range(mask.shape[0]):
             label = self.hex2rgb(mask[i])
             labels.append(label)
