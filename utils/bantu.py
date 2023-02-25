@@ -17,8 +17,6 @@ class Dirname:
         
         return dir
 
-a = Dirname('image', 'png').list()
-
 # membaca dataset dan memasukkannya ke dalam variabel
 class BacaData:
     def __init__(self, dir):
@@ -58,13 +56,3 @@ class Dataset:
         Y = np.array(self.msk)
 
         return X, Y
-
-
-# zona test fungsi
-# img = Dataset('dem').ambil()
-# # print(len(img))
-
-# # plt.show()
-
-# xx = np.array(img[1])
-# plt.imshow(xx[-1], cmap='viridis')
