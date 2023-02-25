@@ -1,5 +1,6 @@
 from utils.bantu import BacaData, Dataset
 from utils.hex2rgb import Label
+from utils.model import AkmalCNN
 from matplotlib import pyplot as plt
 
 import numpy as np
@@ -16,11 +17,14 @@ print(f'Ukuran data input (gambar dan dem) adalah {X_data.shape}')
 print(f'Ukuran data label atau data mask adalah {Y_data.shape}')
 print(f'jumlah kelas yg ada : {np.unique(Y_data)}')
 
+shape = AkmalCNN(7, 512, 512, 4)
+model = shape.buatModel()
+compiled_model = shape.compileModel(model)
 # plot img
-image_number = random.randint(0, len(img_dataset))
-plt.figure(figsize=(12, 6))
-plt.subplot(121)
-plt.imshow(img_dataset[image_number])
-plt.subplot(122)
-plt.imshow(Y_data[image_number][:,:,0])
-plt.show()
+# image_number = random.randint(0, len(img_dataset))
+# plt.figure(figsize=(12, 6))
+# plt.subplot(121)
+# plt.imshow(img_dataset[image_number])
+# plt.subplot(122)
+# plt.imshow(Y_data[image_number][:,:,0])
+# plt.show()

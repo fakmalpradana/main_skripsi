@@ -1,5 +1,7 @@
 from keras.layers import Conv2D, Dropout, MaxPooling2D, Conv2DTranspose, concatenate, Input
 from keras.models import Model
+from keras import backend as K
+import segmentation_models as sm
 
 class AkmalCNN:
     def __init__(self, n_classes, IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS):
@@ -74,3 +76,26 @@ class AkmalCNN:
         #model.summary()
         
         return model
+    
+    def jacard_coef(y_true, y_pred):
+        y_true_f = K.flatten(y_true)
+        y_pred_f = K.flatten(y_pred)
+        intersection = K.sum(y_true_f * y_pred_f)
+        
+        return (intersection + 1.0) / (K.sum(y_true_f) + K.sum(y_pred_f) - intersection + 1.0)
+    
+    def bobot():
+        weights = [0.142, 0.142, 0.142, 0.142, 0.142, 0.142, 0.142]
+        dice_loss = sm.losses.DiceLoss(class_weights=weights) 
+        focal_loss = sm.losses.CategoricalFocalLoss()
+        total_loss = dice_loss + (1 * focal_loss)
+
+        return total_loss
+    
+    
+    def compileModel(self, model):
+        metrics = ['accuracy', self.jacard_coef]
+
+        model.compile(optimizer='adam', loss=self.bobot, metrics=metrics)
+        #model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=metrics)
+        model.summary()
