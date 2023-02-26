@@ -77,14 +77,14 @@ class AkmalCNN:
         
         return model
     
-    def jacard_coef(y_true, y_pred):
+    def jacard_coef(self, y_true, y_pred):
         y_true_f = K.flatten(y_true)
         y_pred_f = K.flatten(y_pred)
         intersection = K.sum(y_true_f * y_pred_f)
         
         return (intersection + 1.0) / (K.sum(y_true_f) + K.sum(y_pred_f) - intersection + 1.0)
     
-    def bobot():
+    def bobot(self):
         weights = [0.142, 0.142, 0.142, 0.142, 0.142, 0.142, 0.142]
         dice_loss = sm.losses.DiceLoss(class_weights=weights) 
         focal_loss = sm.losses.CategoricalFocalLoss()
@@ -95,7 +95,9 @@ class AkmalCNN:
     
     def compileModel(self, model):
         metrics = ['accuracy', self.jacard_coef]
-
-        model.compile(optimizer='adam', loss=self.bobot, metrics=metrics)
+        bobot = self.bobot()
+        model.compile(optimizer='adam', loss=bobot, metrics=metrics)
         #model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=metrics)
         model.summary()
+
+        return model
