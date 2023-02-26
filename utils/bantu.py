@@ -50,6 +50,7 @@ class Dataset:
 
     def splitXY(self):
         dem = np.expand_dims(np.array(self.dem), -1)
+        dem = dem.round(decimals=2)
         img = np.array(self.img)
 
         X = np.concatenate([img, dem], axis=-1)
