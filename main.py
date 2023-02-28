@@ -17,8 +17,8 @@ dem_dataset = BacaData('dem').ambil()
 X_data, Y_data = Dataset(img_dataset, msk_dataset, dem_dataset).splitXY()
 Y_data = Label(Y_data).convert()
 
-# percobaan sementara tanpa dem
-X_data = np.array(img_dataset)
+# # percobaan sementara tanpa dem
+# X_data = np.array(img_dataset)
 
 Y_data = to_categorical(Y_data, num_classes=len(np.unique(Y_data)))
 X_train, X_test, y_train, y_test = train_test_split(X_data, Y_data, test_size = 0.20, random_state = 42)
@@ -62,14 +62,9 @@ print(f'Ukuran label test adalah {y_test.shape}')
 # predicted_img=np.argmax(prediction, axis=3)[0,:,:]
 
 
-plt.figure(figsize=(12, 8))
-plt.subplot(231)
-plt.title('Testing Image')
-plt.imshow(X_test[2])
-plt.subplot(232)
-plt.title('Testing Label')
-plt.imshow(y_train[2])
-plt.subplot(233)
-plt.title('Prediction on test image')
-plt.imshow(X_train[2])
+plt.figure(figsize=(12, 6))
+plt.subplot(121)
+plt.imshow(X_data[8][:,:,:3])
+plt.subplot(122)
+plt.imshow(Y_data[8][:,:,0])
 plt.show()

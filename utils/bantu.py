@@ -53,7 +53,11 @@ class Dataset:
         dem = dem.round(decimals=2)
         img = np.array(self.img)
 
-        X = cv2.merge([img[:,:,0], img[:,:,1], img[:,:,2], dem])
+        r = np.expand_dims(img[:,:,:,0], -1)
+        g = np.expand_dims(img[:,:,:,1], -1)
+        b = np.expand_dims(img[:,:,:,2], -1)
+
+        X = np.concatenate((r, g, b, dem), axis=-1)
         Y = np.array(self.msk)
 
         return X, Y
