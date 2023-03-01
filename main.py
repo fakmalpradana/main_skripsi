@@ -46,33 +46,10 @@ compiled_model.fit(
     shuffle=False,
 )
 
-# save model
-compiled_model.save('model/test_model.h5')
+# # save model
+# compiled_model.save('model/test_model.h5')
 
-# test model
-y_pred=compiled_model.predict(X_test)
-y_pred_argmax=np.argmax(y_pred, axis=3)
-y_test_argmax=np.argmax(y_test, axis=3)
 
-test_img_number = random.randint(0, len(X_test))
-test_img = X_test[test_img_number]
-ground_truth=y_test_argmax[test_img_number]
-#test_img_norm=test_img[:,:,0][:,:,None]
-test_img_input=np.expand_dims(test_img, 0)
-prediction = (compiled_model.predict(test_img_input))
-predicted_img=np.argmax(prediction, axis=3)[0,:,:]
-
-plt.figure(figsize=(12, 8))
-plt.subplot(231)
-plt.title('Testing Image')
-plt.imshow(test_img)
-plt.subplot(232)
-plt.title('Testing Label')
-plt.imshow(ground_truth)
-plt.subplot(233)
-plt.title('Prediction on test image')
-plt.imshow(predicted_img)
-plt.show()
 
 # plt.figure(figsize=(12, 6))
 # plt.subplot(121)
