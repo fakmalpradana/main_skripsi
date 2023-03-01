@@ -43,21 +43,18 @@ class BacaData:
         return [cv2.cvtColor(x, cv2.COLOR_BGR2RGB) for x in self.ambil()]
 
 class Dataset:
-    def __init__(self, img, msk, dem):
+    def __init__(self, img, msk, hsd, sgm):
         self.img = img
         self.msk = msk
-        self.dem = dem
+        self.hsd = hsd
+        self.sgm = sgm
 
     def splitXY(self):
-        dem = np.expand_dims(np.array(self.dem), -1)
-        dem = dem.round(decimals=2)
+        hsd = np.array(self.hsd)
         img = np.array(self.img)
+        sgm = np.array(self.sgm)
 
-        r = np.expand_dims(img[:,:,:,0], -1)
-        g = np.expand_dims(img[:,:,:,1], -1)
-        b = np.expand_dims(img[:,:,:,2], -1)
-
-        X = np.concatenate((r, g, b, dem), axis=-1)
+        X = np.concatenate((hsd, img, sgm), axis=-1)
         Y = np.array(self.msk)
 
         return X, Y
