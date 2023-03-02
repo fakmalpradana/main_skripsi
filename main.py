@@ -1,12 +1,10 @@
 from utils.bantu import BacaData, Dataset
 from utils.hex2rgb import Label
 from utils.model import AkmalCNN
-from matplotlib import pyplot as plt
 from keras.utils import to_categorical
 from sklearn.model_selection import train_test_split
 
 import numpy as np
-import random
 
 # mengambil data dari direktori
 img_dataset = BacaData('image').ambilRGB()
@@ -30,6 +28,9 @@ print(f'Ukuran label train adalah {y_train.shape}')
 print(f'Ukuran data test adalah {X_test.shape}')
 print(f'Ukuran label test adalah {y_test.shape}')
 
+# hapus variabel yg tidak diperlukan
+del X_data, Y_data, img_dataset, msk_dataset, hsd_dataset, sgm_dataset
+
 # buat dan compile model
 shape = AkmalCNN(7, 512, 512, 9)
 model = shape.buatModel()
@@ -41,15 +42,13 @@ compiled_model.fit(
     y_train,
     batch_size=8,
     verbose=1,
-    epochs=50,
+    epochs=250,
     validation_data=(X_test, y_test),
     shuffle=False,
 )
 
-# # save model
-# compiled_model.save('model/test_model.h5')
-
-
+# save model
+compiled_model.save('model/test_250x.h5')
 
 # plt.figure(figsize=(12, 6))
 # plt.subplot(121)
