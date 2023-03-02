@@ -85,17 +85,27 @@ class AkmalCNN:
         return (intersection + 1.0) / (K.sum(y_true_f) + K.sum(y_pred_f) - intersection + 1.0)
     
     def bobot(self):
-        weights = [0.142, 0.142, 0.142, 0.142, 0.142, 0.142, 0.142]
+        weights = [0, 2/14, 2/14, 1/14, 4/14, 3/14, 2/14]
         dice_loss = sm.losses.DiceLoss(class_weights=weights) 
         focal_loss = sm.losses.CategoricalFocalLoss()
         total_loss = dice_loss + (1 * focal_loss)
 
         return total_loss
     
+    # # versi 1
+    # def compileModel(self, model):
+    #     metrics = ['accuracy', self.jacard_coef]
+    #     bobot = self.bobot()
+    #     model.compile(optimizer='adam', loss=bobot, metrics=metrics)
+    #     #model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=metrics)
+    #     model.summary()
+
+    #     return model
     
+    # versi 2
     def compileModel(self, model):
-        metrics = ['accuracy', self.jacard_coef]
-        bobot = self.bobot()
+        metrics = ['accuracy']
+        bobot = 'categorical_crossentropy'
         model.compile(optimizer='adam', loss=bobot, metrics=metrics)
         #model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=metrics)
         model.summary()

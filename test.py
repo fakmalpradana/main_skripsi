@@ -10,7 +10,7 @@ import numpy as np
 import random
 
 model = load_model(
-    'model/test_model.h5',
+    'model/e250_k5.h5',
     custom_objects={
         'dice_loss_plus_1focal_loss': AkmalCNN(7, 512, 512, 9).bobot(),
         'jacard_coef': AkmalCNN(7, 512, 512, 9).jacard_coef
