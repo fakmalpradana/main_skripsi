@@ -105,7 +105,7 @@ class AkmalCNN:
     # versi 2
     def compileModel(self, model):
         metrics = ['accuracy']
-        bobot = 'categorical_crossentropy'
+        bobot = 'binary_crossentropy'
         model.compile(optimizer='adam', loss=bobot, metrics=metrics)
         #model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=metrics)
         model.summary()

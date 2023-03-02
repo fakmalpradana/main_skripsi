@@ -10,7 +10,7 @@ import numpy as np
 import random
 
 model = load_model(
-    'model/e250_k5.h5',
+    'model/e250_k5_v2.h5',
     custom_objects={
         'dice_loss_plus_1focal_loss': AkmalCNN(7, 512, 512, 9).bobot(),
         'jacard_coef': AkmalCNN(7, 512, 512, 9).jacard_coef
@@ -30,7 +30,7 @@ Y_data = Label(Y_data).convert()
 # X_data = np.array(img_dataset)
 
 Y_data = to_categorical(Y_data, num_classes=len(np.unique(Y_data)))
-X_train, X_test, y_train, y_test = train_test_split(X_data, Y_data, test_size = 0.20, random_state = 42)
+X_train, X_test, y_train, y_test = train_test_split(X_data, Y_data, test_size = 0.50, random_state = 42)
 
 # test model
 y_pred = model.predict(X_test)
