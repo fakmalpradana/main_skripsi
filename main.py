@@ -42,7 +42,7 @@ compiled_model.fit(
     y_train,
     batch_size=8,
     verbose=1,
-    epochs=250,
+    epochs=500,
     validation_data=(X_test, y_test),
     shuffle=False,
 )
