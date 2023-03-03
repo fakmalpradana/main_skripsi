@@ -48,7 +48,7 @@ compiled_model.fit(
 )
 
 # save model
-compiled_model.save('model/e250_k5_v2.h5')
+compiled_model.save('model/e500_k3_v2.h5')
 
 # plt.figure(figsize=(12, 6))
 # plt.subplot(121)

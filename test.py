@@ -2,7 +2,7 @@ from keras.models import load_model
 from utils.model import AkmalCNN
 from utils.bantu import BacaData, Dataset
 from utils.hex2rgb import Label
-from keras.utils import to_categorical
+from keras.utils import to_categorical, plot_model
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
 
@@ -10,11 +10,13 @@ import numpy as np
 import random
 
 model = load_model(
-    'model/e250_k5_v2.h5',
+    'model/e500_k3_v2.h5',
     custom_objects={
         'dice_loss_plus_1focal_loss': AkmalCNN(7, 512, 512, 9).bobot(),
         'jacard_coef': AkmalCNN(7, 512, 512, 9).jacard_coef
     })
+
+plot_model(model, "model_3k.png", show_shapes=True)
 
 # mengambil data dari direktori
 img_dataset = BacaData('image').ambilRGB()
@@ -37,7 +39,7 @@ y_pred = model.predict(X_test)
 y_pred_argmax = np.argmax(y_pred, axis=3)
 y_test_argmax = np.argmax(y_test, axis=3)
 
-test_img_number = random.randint(0, len(X_test))
+test_img_number = random.randint(0, len(X_test)-1)
 test_img = X_test[test_img_number]
 ground_truth = y_test_argmax[test_img_number]
 #test_img_norm=test_img[:,:,0][:,:,None]
