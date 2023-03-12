@@ -31,30 +31,32 @@ Y_data = Label(Y_data).convert()
 # # percobaan sementara tanpa dem
 # X_data = np.array(img_dataset)
 
-Y_data = to_categorical(Y_data, num_classes=len(np.unique(Y_data)))
-X_train, X_test, y_train, y_test = train_test_split(X_data, Y_data, test_size = 0.50, random_state = 42)
+# Y_data = to_categorical(Y_data, num_classes=len(np.unique(Y_data)))
+# X_train, X_test, y_train, y_test = train_test_split(X_data, Y_data, test_size = 0.50, random_state = 42)
 
 # test model
-y_pred = model.predict(X_test)
+y_pred = model.predict(X_data)
 y_pred_argmax = np.argmax(y_pred, axis=3)
-y_test_argmax = np.argmax(y_test, axis=3)
+y_test_argmax = np.argmax(Y_data, axis=3)
 
-test_img_number = random.randint(0, len(X_test)-1)
-test_img = X_test[test_img_number]
-ground_truth = y_test_argmax[test_img_number]
-#test_img_norm=test_img[:,:,0][:,:,None]
-test_img_input = np.expand_dims(test_img, 0)
-prediction = (model.predict(test_img_input))
-predicted_img = np.argmax(prediction, axis=3)[0,:,:]
+# test_img_number = random.randint(0, len(X_data)-1)
+# test_img = X_data[test_img_number]
+# ground_truth = y_test_argmax[test_img_number]
+# #test_img_norm=test_img[:,:,0][:,:,None]
+# test_img_input = np.expand_dims(test_img, 0)
+# prediction = (model.predict(test_img_input))
+# predicted_img = np.argmax(prediction, axis=3)[0,:,:]
 
-plt.figure(figsize=(12, 8))
-plt.subplot(231)
-plt.title('Testing Image')
-plt.imshow(test_img[:,:,3:6])
-plt.subplot(232)
-plt.title('Testing Label')
-plt.imshow(ground_truth)
-plt.subplot(233)
-plt.title('Prediction on test image')
-plt.imshow(predicted_img)
-plt.show()
+# plt.figure(figsize=(12, 8))
+# plt.subplot(231)
+# plt.title('Testing Image')
+# plt.imshow(test_img[:,:,3:6])
+# plt.subplot(232)
+# plt.title('Testing Label')
+# plt.imshow(ground_truth)
+# plt.subplot(233)
+# plt.title('Prediction on test image')
+# plt.imshow(predicted_img)
+# plt.show()
+
+print(y_pred.shape)
