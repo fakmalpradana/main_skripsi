@@ -5,10 +5,13 @@ from utils.hex2rgb import Label
 from keras.utils import to_categorical, plot_model
 from sklearn.model_selection import train_test_split
 from matplotlib import pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
 
 import numpy as np
+import patchify as p
 import random
 
+scaler = MinMaxScaler()
 model = load_model(
     'model/e500_k3_v2.h5',
     custom_objects={
@@ -35,9 +38,9 @@ Y_data = Label(Y_data).convert()
 # X_train, X_test, y_train, y_test = train_test_split(X_data, Y_data, test_size = 0.50, random_state = 42)
 
 # test model
-y_pred = model.predict(X_data)
-y_pred_argmax = np.argmax(y_pred, axis=3)
-y_test_argmax = np.argmax(Y_data, axis=3)
+# y_pred = model.predict(X_data) # shape 63, 512, 512, 7
+# y_pred_argmax = np.argmax(y_pred, axis=3)
+# y_test_argmax = np.argmax(Y_data, axis=3)
 
 # test_img_number = random.randint(0, len(X_data)-1)
 # test_img = X_data[test_img_number]
@@ -59,4 +62,27 @@ y_test_argmax = np.argmax(Y_data, axis=3)
 # plt.imshow(predicted_img)
 # plt.show()
 
-print(y_pred.shape)
+patched_prediction = []
+for i in range(X_data.shape[0]):
+    for j in range(X_data.shape[1]):
+        
+        single_patch_img = X_data[i,j,:,:,:]
+        
+        #Use minmaxscaler instead of just dividing by 255. 
+        single_patch_img = scaler.fit_transform(single_patch_img.reshape(-1, single_patch_img.shape[-1])).reshape(single_patch_img.shape)
+        single_patch_img = np.expand_dims(single_patch_img, axis=0)
+        pred = model.predict(single_patch_img)
+        pred = np.argmax(pred, axis=3)
+        pred = pred[0, :,:]
+                                 
+        patched_prediction.append(pred)
+
+patched_prediction = np.array(patched_prediction)
+patched_prediction = np.reshape(patched_prediction, [X_data.shape[0], X_data.shape[1], X_data.shape[2], X_data.shape[3]])
+
+img_x, img_y = 4365, 3304
+unpatched_prediction = p.unpatchify(patched_prediction, (img_x, img_y))
+
+# gabung seluruh data hasil prediksi
+# plt.imshow(pred)
+# plt.show()
