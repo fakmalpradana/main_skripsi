@@ -13,18 +13,13 @@ import patchify as p
 import cv2
 
 scaler = MinMaxScaler()
-model = load_model(
-    'model/e500_k3_v2.h5',
-    custom_objects={
-        'dice_loss_plus_1focal_loss': AkmalCNN(7, 512, 512, 9).bobot(),
-        'jacard_coef': AkmalCNN(7, 512, 512, 9).jacard_coef
-    })
+model = load_model('model/e500_k3_v4.h5',)
 
 # plot_model(model, "model_3k.png", show_shapes=True)
 
-aoi = cv2.imread('data/ortho_aoi_30.png', 1)
-hil = cv2.imread('data/HillShade_aoi.png', 1)
-seg = cv2.imread('data/Segmented_aoi.png', 1)
+aoi = cv2.imread('data/ortho_30.png', 1)
+hil = cv2.imread('data/hill_30.png', 1)
+seg = cv2.imread('data/segment_aoi.png', 1)
 
 patch_size = 512
 
