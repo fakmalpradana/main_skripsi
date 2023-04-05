@@ -4,17 +4,17 @@ import cv2
 from matplotlib import pyplot as plt
 
 # bagian ambil gambar
-segment = cv2.imread('data/segment_10.png')
+segment = cv2.imread('/home/fairuzakmal/skripsiCNN/data/segment_30.png')
 segment = cv2.cvtColor(segment, cv2.COLOR_BGR2RGB)
 segment = np.array(segment)
 size_ori = segment.shape  # shape 9901, 13080, 3
 
 # bagian menentukan ukuran channel dan pembulatan ke atas
-ch1 = np.ceil(segment.shape[0]/1024).astype(int)
-ch2 = np.ceil(segment.shape[1]/1024).astype(int)
+ch1 = np.ceil(segment.shape[0]/512).astype(int)
+ch2 = np.ceil(segment.shape[1]/512).astype(int)
 
 # menambahkan kolom dan baris kosong pd gambar
-arr0 = np.zeros((ch1*1024, ch2*1024, 3))
+arr0 = np.zeros((ch1*512, ch2*512, 3))
 arr0[:segment.shape[0], :segment.shape[1]] += segment
 arr = arr0.astype(np.uint8)
 
@@ -25,7 +25,7 @@ print(f'channel 1 : {ch1}')
 print(f'channel 2 : {ch2}')
 
 # bagian patch gambar
-patches = p.patchify(arr, (1024, 1024, 3), step=1024)
+patches = p.patchify(arr, (512, 512, 3), step=512)
 print(patches.shape)
 
 img_patches = []
@@ -41,5 +41,7 @@ print(img_patches.shape)
 unpatch_img = img_patches.reshape(patches.shape)
 print(unpatch_img.shape)
 
-plt.imshow(unpatch_img)
+reconstructed_image = p.unpatchify(patches, arr.shape)
+
+plt.imshow(reconstructed_image)
 plt.show()
