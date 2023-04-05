@@ -8,10 +8,10 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 # mengambil data dari direktori
-img_dataset = BacaData('data/ortho_30.png').patchData(512)
-msk_dataset = BacaData('data/mask_30.png').patchData(512)
-hsd_dataset = BacaData('data/hill_30.png').patchData(512)
-sgm_dataset = BacaData('data/segment_30.png').patchData(512)
+img_dataset = BacaData('data/ortho_30.png').patchData(512, 0.625)
+msk_dataset = BacaData('data/mask_30.png').patchData(512, 0.625)
+hsd_dataset = BacaData('data/hill_30.png').patchData(512, 0.625)
+sgm_dataset = BacaData('data/segment_30.png').patchData(512, 0.625)
 
 # preprosesing data (pembuatan dataset, convert label, dan train test split data)
 X_data, Y_data = Dataset(img_dataset, msk_dataset, hsd_dataset, sgm_dataset).splitXY()

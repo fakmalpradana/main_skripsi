@@ -49,7 +49,7 @@ class BacaData:
     # def ambilRGB(self):
     #     return [cv2.cvtColor(x, cv2.COLOR_BGR2RGB) for x in self.ambil()]
     
-    def patchData(self, patch_dim:int):
+    def patchData(self, patch_dim:int, step_size:float):
         img = self.img
 
         # pembulatan channel img
@@ -63,7 +63,7 @@ class BacaData:
 
         # patch image
         patch_shape = (patch_dim, patch_dim, 3)
-        patches = p.patchify(arr, patch_shape, step=int(patch_dim*0.625))
+        patches = p.patchify(arr, patch_shape, step=int(patch_dim*step_size))
 
         img_patches = []
         for i in range(patches.shape[0]):

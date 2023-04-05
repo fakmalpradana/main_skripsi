@@ -41,7 +41,7 @@ print(img_patches.shape)
 unpatch_img = img_patches.reshape(patches.shape)
 print(unpatch_img.shape)
 
-reconstructed_image = p.unpatchify(patches, arr.shape)
+reconstructed_image = p.unpatchify(unpatch_img, arr.shape)
 
 plt.imshow(reconstructed_image)
 plt.show()
