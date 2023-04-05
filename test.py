@@ -1,16 +1,11 @@
 from keras.models import load_model
-from utils.model import AkmalCNN
 from utils.bantu import BacaData, Dataset
 from utils.hex2rgb import Label
-from keras.utils import to_categorical, plot_model
-from sklearn.model_selection import train_test_split
+from keras.utils import to_categorical
 from matplotlib import pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
-from PIL import Image
 
 import numpy as np
-import patchify as p
-import cv2
 import random
 
 scaler = MinMaxScaler()
