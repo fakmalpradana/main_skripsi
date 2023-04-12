@@ -42,3 +42,8 @@ print(unpatch_img.shape)
 
 reconstructed_image = p.unpatchify(unpatch_img, (3584, 4608, 1))
 print(f'ukuran akhir prediksi {reconstructed_image.shape}')
+
+# predicted_img = np.argmax(reconstructed_image, axis=0)[0,:,:]
+plt.imshow(reconstructed_image)
+plt.show()
+# print(np.unique(predicted_img))
