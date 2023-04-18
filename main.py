@@ -11,10 +11,10 @@ import numpy as np
 scaler = MinMaxScaler()
 model = load_model('model/e500_k3_v4.h5',)
 
-aoi = BacaData('data/ortho_30.png').patchData(512, 1)
-hil = BacaData('data/hill_30.png').patchData(512, 1)
-seg = BacaData('data/segment_30.png').patchData(512, 1)
-msk = BacaData('data/mask_30.png').patchData(512, 1)
+aoi = BacaData('data/ortho_ugm_65.png').patchData(512, 1)
+hil = BacaData('data/hill_ugm_65.png').patchData(512, 1)
+seg = BacaData('data/sgm_ugm_65.png').patchData(512, 1)
+msk = BacaData('data/mask_ugm_65.png').patchData(512, 1)
 
 X_data, Y_data = Dataset(aoi, msk, hil, seg).splitXY()
 Y_data = Label(Y_data).convert()
