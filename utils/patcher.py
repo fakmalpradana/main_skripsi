@@ -4,7 +4,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # bagian ambil gambar
-segment = cv2.imread('/home/fairuzakmal/skripsiCNN/data/segment_30.png')
+segment = cv2.imread('/home/fairuzakmal/skripsiCNN/data/sgm_ugm_65.png')
 segment = cv2.cvtColor(segment, cv2.COLOR_BGR2RGB)
 segment = np.array(segment)
 size_ori = segment.shape  # shape 9901, 13080, 3

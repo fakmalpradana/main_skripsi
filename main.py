@@ -35,12 +35,12 @@ predict = np.array(predict)
 
 print(predict.shape) # isinya (63, 512, 512)
 
-size = (7, 9, 1, 512, 512, 1)
+size = (7, 8, 1, 512, 512, 1)
 
 unpatch_img = predict.reshape(size)
 print(unpatch_img.shape)
 
-reconstructed_image = p.unpatchify(unpatch_img, (3584, 4608, 1))
+reconstructed_image = p.unpatchify(unpatch_img, (3584, 4096, 1))
 print(f'ukuran akhir prediksi {reconstructed_image.shape}')
 
 # predicted_img = np.argmax(reconstructed_image, axis=0)[0,:,:]
