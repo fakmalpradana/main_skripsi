@@ -41,10 +41,10 @@ compiled_model.fit(
     y_train,
     batch_size=8,
     verbose=1,
-    epochs=100,
+    epochs=250,
     validation_data=(X_test, y_test),
     shuffle=False,
 )
 
 # save model
-compiled_model.save('model/e100_v4_25.h5')
+compiled_model.save('model/e250_v4_25.h5')
