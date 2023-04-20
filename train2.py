@@ -1,6 +1,5 @@
 from utils.bantu import BacaData, Dataset
 from utils.hex2rgb import Label
-from utils.model import AkmalCNN
 from keras.utils import to_categorical
 from keras.models import load_model
 from sklearn.model_selection import train_test_split
