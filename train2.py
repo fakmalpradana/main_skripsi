@@ -17,7 +17,7 @@ X_data, Y_data = Dataset(img_dataset, msk_dataset, hsd_dataset, sgm_dataset).spl
 Y_data = Label(Y_data).convert()
 
 Y_data = to_categorical(Y_data, num_classes=len(np.unique(Y_data)))
-X_train, X_test, y_train, y_test = train_test_split(X_data, Y_data, test_size = 0.65, random_state = 42)
+X_train, X_test, y_train, y_test = train_test_split(X_data, Y_data, test_size = 0.85, random_state = 42)
 
 # cek ukuran data
 print(f'Ukuran data train adalah {X_train.shape}')
@@ -47,4 +47,4 @@ compiled_model.fit(
 )
 
 # save model
-compiled_model.save('model/e250_v4_35.h5')
+compiled_model.save('model/e250_v4_15.h5')
