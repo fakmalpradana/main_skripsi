@@ -9,7 +9,7 @@ import patchify as p
 import numpy as np
 
 scaler = MinMaxScaler()
-model = load_model('model/e500_k3_v4.h5',)
+model = load_model('model/e250_v4_25.h5',)
 
 aoi = BacaData('data/ortho_ugm_65.png').patchData(512, 1)
 hil = BacaData('data/hill_ugm_65.png').patchData(512, 1)
