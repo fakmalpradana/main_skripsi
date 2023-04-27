@@ -7,9 +7,10 @@ from sklearn.preprocessing import MinMaxScaler
 
 import patchify as p
 import numpy as np
+import cv2
 
 scaler = MinMaxScaler()
-model = load_model('model/e250_v4_25.h5',)
+model = load_model('model/e250_v4_15.h5',)
 
 aoi = BacaData('data/ortho_ugm_65.png').patchData(512, 1)
 hil = BacaData('data/hill_ugm_65.png').patchData(512, 1)
@@ -43,7 +44,12 @@ print(unpatch_img.shape)
 reconstructed_image = p.unpatchify(unpatch_img, (3584, 4096, 1))
 print(f'ukuran akhir prediksi {reconstructed_image.shape}')
 
+out_img = reconstructed_image[:3227, :3899, :]
+out_img = cv2.merge((out_img, out_img, out_img))
+print(f'ukuran akhir output {out_img.shape}')
+
 # predicted_img = np.argmax(reconstructed_image, axis=0)[0,:,:]
-plt.imshow(reconstructed_image)
-plt.show()
+# plt.imshow(reconstructed_image)
+# plt.show()
 # print(np.unique(predicted_img))
+plt.imsave('out/ugm_15.png', out_img)

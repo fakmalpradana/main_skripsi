@@ -1,4 +1,5 @@
 import numpy as np
+import cv2
 
 class Label:
     def __init__(self, mask):
@@ -43,3 +44,30 @@ class Label:
             labels.append(label)
 
         return np.expand_dims(np.array(labels), axis=3)
+    
+    def invert(self):
+        mask = self.mask
+        b, g, r = cv2.split(mask)
+
+        r[r==1] = 105
+        r[r==2] = 255
+        r[r==3] = 0
+        r[r==4] = 82
+        r[r==5] = 0
+        r[r==6] = 191
+
+        g[g==1] = 0
+        g[g==2] = 0
+        g[g==3] = 255
+        g[g==4] = 156
+        g[g==5] = 75
+        g[g==6] = 156
+
+        b[b==1] = 140
+        b[b==2] = 0
+        b[b==3] = 0
+        b[b==4] = 154
+        b[b==5] = 0
+        b[b==6] = 0
+
+        return cv2.merge([b, g, r])
