@@ -11,7 +11,7 @@ import numpy as np
 import cv2
 
 scaler = MinMaxScaler()
-model = load_model('model/e250_v4_35.h5',)
+model = load_model('model/e250_v4_15.h5',)
 
 aoi = BacaData('data/ortho_ugm_65.png').patchData(512, 1)
 hil = BacaData('data/hill_ugm_65.png').patchData(512, 1)
@@ -56,4 +56,4 @@ out_img = out_img.astype(np.uint8)
 # plt.imshow(reconstructed_image)
 # plt.show()
 # print(np.unique(predicted_img))
-plt.imsave('out/ugm_35.png', out_img)
+cv2.imwrite('out/ugm_15.png', out_img)
