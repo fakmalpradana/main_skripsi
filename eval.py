@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from utils.hex2rgb import Label
 from sklearn import metrics as m
 
-x = cv2.imread('out/ugm_35.png')
+x = cv2.imread('out/ugm_15.png')
 y = cv2.imread('data/mask_ugm_65.png')
 
 x = cv2.cvtColor(x, cv2.COLOR_BGR2RGB)
