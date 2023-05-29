@@ -10,20 +10,24 @@ import patchify as p
 import numpy as np
 import cv2
 
+# load model
 scaler = MinMaxScaler()
-model = load_model('model/e250_v4_15.h5',)
+model = load_model('model/e250_v4_35.h5',)
 
+# load data
 aoi = BacaData('data/ortho_ugm_65.png').patchData(512, 1)
 hil = BacaData('data/hill_ugm_65.png').patchData(512, 1)
 seg = BacaData('data/sgm_ugm_65.png').patchData(512, 1)
 msk = BacaData('data/mask_ugm_65.png').patchData(512, 1)
 
+# pre-prosesing
 X_data, Y_data = Dataset(aoi, msk, hil, seg).splitXY()
 Y_data = Label(Y_data).convert()
 Y_data = to_categorical(Y_data, num_classes=len(np.unique(Y_data)))
 
 y_argmax = np.argmax(Y_data, axis=3)
 
+# proses klasifikasi
 predict = []
 for i in range(X_data.shape[0]):
     test_img = X_data[i]
@@ -39,6 +43,7 @@ print(predict.shape) # isinya (63, 512, 512)
 
 size = (7, 8, 1, 512, 512, 1)
 
+# rebuild patch gambar
 unpatch_img = predict.reshape(size)
 print(unpatch_img.shape)
 
@@ -56,4 +61,4 @@ out_img = out_img.astype(np.uint8)
 # plt.imshow(reconstructed_image)
 # plt.show()
 # print(np.unique(predicted_img))
-cv2.imwrite('out/ugm_15.png', out_img)
+cv2.imwrite('out/ugm_new.png', out_img)

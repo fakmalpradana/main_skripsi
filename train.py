@@ -1,3 +1,5 @@
+# Masteran, edit nya di train 2 aja
+
 from utils.bantu import BacaData, Dataset
 from utils.hex2rgb import Label
 from utils.model import AkmalCNN
