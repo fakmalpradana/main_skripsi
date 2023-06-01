@@ -29,6 +29,8 @@ class BacaData:
         self.size_ori = img.shape
         self.img = img
     
+    def loadData(self):
+        return self.img
     # def dirname(self, listDir):
     #     ROOT_DIR = f'./data/{self.dir}_patch/'
     #     dirfile = []
