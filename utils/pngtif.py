@@ -2,12 +2,12 @@ from PIL import Image
 from osgeo import gdal
 
 # convert format
-img = Image.open('ugm_35.png')
-img.save('ugm_35.tif')
+img = Image.open('./out/ugm_35.png')
+img.save('./out/ugm_35.tif')
 
 # buka raster
-ds = gdal.Open('ugm_35.tif', gdal.GA_Update)
-ref = gdal.Open('ortho_clip_65.tif', gdal.GA_Update)
+ds = gdal.Open('./out/ugm_35.tif', gdal.GA_Update)
+ref = gdal.Open('./data/ugm/ortho_clip_65.tif', gdal.GA_Update)
 
 # get geotransform
 gt1 = ds.GetGeoTransform()

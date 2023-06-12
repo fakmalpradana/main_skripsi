@@ -15,10 +15,10 @@ scaler = MinMaxScaler()
 model = load_model('model/e250_v4_35.h5',)
 
 # load data
-aoi = BacaData('data/klaten4/ortho4.png').patchData(512, 1)
-hil = BacaData('data/klaten4/hill4.png').patchData(512, 1)
-seg = BacaData('data/klaten4/sgm2.png').patchData(512, 1)
-msk = BacaData('data/klaten4/sgm2.png').patchData(512, 1)
+aoi = BacaData('data/bantul3/ortho_f3.png').patchData(512, 1)
+hil = BacaData('data/bantul3/hill_f3.png').patchData(512, 1)
+seg = BacaData('data/bantul3/sgm_f3.png').patchData(512, 1)
+msk = BacaData('data/bantul3/sgm_f3.png').patchData(512, 1)
 
 # pre-prosesing
 X_data, Y_data = Dataset(aoi, msk, hil, seg).splitXY()
@@ -38,22 +38,22 @@ predict = np.array(predict)
 print(predict.shape) # isinya (2, 512, 512)
 
 # rebuild patch gambar
-size = (5, 5, 1, 512, 512, 1)
+size = (3, 2, 1, 512, 512, 1)
 
 unpatch_img = predict.reshape(size)
 print(unpatch_img.shape)
 
-reconstructed_image = p.unpatchify(unpatch_img, (2560, 2560, 1))
+reconstructed_image = p.unpatchify(unpatch_img, (1536, 1024, 1))
 print(f'ukuran akhir prediksi {reconstructed_image.shape}')
 
-out_img = reconstructed_image[:2449, :2067, :]
+out_img = reconstructed_image[:1345, :962, :]
 out_img = cv2.merge((out_img, out_img, out_img))
 print(f'ukuran akhir output {out_img.shape}')
 
 out_img = Label(out_img).invert()
 out_img = out_img.astype(np.uint8)
 
-cv2.imwrite('out/newdata_004.png', out_img)
+cv2.imwrite('out/bantul3.png', out_img)
 
 # # coba plot
 # test_img_number = 0
